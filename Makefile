@@ -12,6 +12,7 @@ help:
 	@echo "  type-check    - Run type checking with mypy and pyright"
 	@echo "  security      - Run security checks with bandit"
 	@echo "  check-all     - Run all code quality checks"
+	@echo "  ci            - Run all checks (same as CI pipeline)"
 	@echo ""
 	@echo "Testing:"
 	@echo "  test          - Run tests with pytest"
@@ -41,12 +42,11 @@ lint:
 	@echo "🔍 Linting code with ruff..."
 	poetry run ruff check . --fix
 	@echo "📝 Running additional linting with pylint..."
-	poetry run pylint strix/ --score=no --reports=no
+	poetry run pylint strigoi/ --score=no --reports=no
 	@echo "✅ Linting complete!"
 
 type-check:
 	@echo "🔍 Type checking with mypy..."
-	poetry run mypy strix/
 	poetry run mypy strigoi/
 	@echo "🔍 Type checking with pyright..."
 	poetry run pyright strigoi/
@@ -59,6 +59,9 @@ security:
 
 check-all: format lint type-check security
 	@echo "✅ All code quality checks passed!"
+
+ci: check-all test
+	@echo "✅ CI checks passed!"
 
 test:
 	@echo "🧪 Running tests..."

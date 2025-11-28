@@ -317,7 +317,7 @@ minversion = "6.0"
 addopts = [
     "--strict-markers",
     "--strict-config",
-    "--cov=strix",
+    "--cov=strigoi",
     "--cov-report=term-missing",
     "--cov-report=html",
     "--cov-report=xml",
@@ -330,7 +330,7 @@ python_classes = ["Test*"]
 asyncio_mode = "auto"
 
 [tool.coverage.run]
-source = ["strix"]
+source = ["strigoi"]
 omit = [
     "*/tests/*",
     "*/migrations/*",

@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          
+      - name: Install dependencies
+        run: poetry install --with dev
+        
+      - name: Format check
+        run: poetry run ruff format --check .
+        
+      - name: Lint check
+        run: poetry run ruff check .
+        
+      - name: Security check
+        run: poetry run bandit -r strigoi/ -c pyproject.toml
+
+  types:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          
+      - name: Install dependencies
+        run: poetry install --with dev
+        
+      - name: Type check (mypy)
+        run: poetry run mypy strigoi/
+        
+      - name: Type check (pyright)
+        run: poetry run pyright strigoi/
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          
+      - name: Install dependencies
+        run: poetry install --with dev
+        
+      - name: Run tests
+        # Allow failure initially as we haven't written tests yet
+        continue-on-error: true
+        run: poetry run pytest -v

@@ -213,3 +213,15 @@ Help expand our collection of specialized prompt modules for AI agents:
 
 > [!WARNING]
 > Only test apps you own or have permission to test. You are responsible for using Strigoi ethically and legally.
+
+## 🔒 Security Implications
+
+Strigoi is a powerful penetration testing tool that requires privileged access to function correctly. Specifically, the Docker containers used for sandboxing require `NET_ADMIN` and `NET_RAW` capabilities to perform network scanning and packet manipulation.
+
+**Recommendation:**
+- **Do not run Strigoi on your personal workstation or a production server.**
+- Use a dedicated Virtual Machine (VM) or a Virtual Private Server (VPS) for running scans.
+- Ensure the environment is isolated from your internal network unless you explicitly intend to scan it.
+
+</div>
+```
