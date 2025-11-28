@@ -101,16 +101,14 @@ We welcome feature ideas! Please:
 
 ## 🤝 Community
 
-- **Discord**: [Join our community](https://discord.gg/YjKFvEZSdZ)
-- **Issues**: [GitHub Issues](https://github.com/usestrix/strix/issues)
+- **Issues**: [GitHub Issues](https://github.com/Kelbresqe/strigoi/issues)
 
 ## ✨ Recognition
 
 We value all contributions! Contributors will be:
 - Listed in release notes
-- Thanked in our Discord
-- Added to contributors list (coming soon)
+- Added to contributors list
 
 ---
 
-**Questions?** Reach out on [Discord](https://discord.gg/YjKFvEZSdZ) or create an issue. We're here to help!
+**Questions?** Create an issue on GitHub. We're here to help!

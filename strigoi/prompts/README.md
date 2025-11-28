@@ -1,8 +1,8 @@
-# 📚 Strix Prompt Modules
+# 📚 Strigoi Prompt Modules
 
 ## 🎯 Overview
 
-Prompt modules are specialized knowledge packages that enhance Strix agents with deep expertise in specific vulnerability types, technologies, and testing methodologies. Each module provides advanced techniques, practical examples, and validation methods that go beyond baseline security knowledge.
+Prompt modules are specialized knowledge packages that enhance Strigoi agents with deep expertise in specific vulnerability types, technologies, and testing methodologies. Each module provides advanced techniques, practical examples, and validation methods that go beyond baseline security knowledge.
 
 ---
 
@@ -56,7 +56,7 @@ Modules use XML-style tags for structure and focus on deep, specialized knowledg
 
 ## 🤝 Contributing
 
-Community contributions are more than welcome — contribute new modules via [pull requests](https://github.com/usestrix/strix/pulls) or [GitHub issues](https://github.com/usestrix/strix/issues) to help expand the collection and improve extensibility for Strix agents.
+Community contributions are more than welcome — contribute new modules via [pull requests](https://github.com/Kelbresqe/strigoi/pulls) or [GitHub issues](https://github.com/Kelbresqe/strigoi/issues) to help expand the collection and improve extensibility for Strigoi agents.
 
 ---
 
