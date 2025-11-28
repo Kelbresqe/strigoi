@@ -1,6 +1,9 @@
 FROM kalilinux/kali-rolling:latest
 
-LABEL description="AI Agent Penetration Testing Environment with Comprehensive Automated Tools"
+LABEL maintainer="Kelbresqe <https://github.com/Kelbresqe>"
+LABEL org.opencontainers.image.source="https://github.com/Kelbresqe/strigoi"
+LABEL org.opencontainers.image.description="Strigoi - AI Security Agent Sandbox Environment"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 RUN apt-get update && \
     apt-get install -y kali-archive-keyring sudo && \

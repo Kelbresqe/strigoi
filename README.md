@@ -185,6 +185,7 @@ export LLM_API_KEY="your-api-key"
 # Optional
 export LLM_API_BASE="your-api-base-url"  # if using a local model, e.g. Ollama, LMStudio
 export PERPLEXITY_API_KEY="your-api-key"  # for search capabilities
+export STRIGOI_IMAGE="ghcr.io/kelbresqe/strigoi-sandbox:latest"  # custom Docker image
 ```
 
 [OpenAI's GPT-5](https://openai.com/api/) (`openai/gpt-5`) and [Anthropic's Claude Sonnet 4.5](https://claude.com/platform/api) (`anthropic/claude-sonnet-4-5`) are the recommended models for best results with Strigoi. We also support many [other options](https://docs.litellm.ai/docs/providers), including cloud and local models, though their performance and reliability may vary.

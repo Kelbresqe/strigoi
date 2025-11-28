@@ -83,9 +83,15 @@ poetry run strigoi --target ./app  # Run locally
 
 ### Sandbox Execution
 - Tools with `sandbox_execution=True` (default) run inside Docker container
-- Container image set via `STRIGOI_IMAGE` environment variable
+- Container image: `ghcr.io/kelbresqe/strigoi-sandbox:latest` (override via `STRIGOI_IMAGE`)
 - Host-side tools (agent coordination, reporting) use `sandbox_execution=False`
 - Sandbox communication via HTTP to tool server with bearer token auth
+
+### Docker Image
+- Dockerfile: `containers/Dockerfile` (Kali Linux based)
+- Auto-built via `.github/workflows/docker.yml` on push to main
+- Multi-arch support: linux/amd64, linux/arm64
+- Published to: `ghcr.io/kelbresqe/strigoi-sandbox`
 
 ### LLM Configuration
 ```python

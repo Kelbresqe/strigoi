@@ -14,7 +14,7 @@ from docker.models.containers import Container
 from .runtime import AbstractRuntime, SandboxInfo
 
 
-STRIGOI_IMAGE = os.getenv("STRIGOI_IMAGE", "ghcr.io/usestrix/strix-sandbox:0.1.10")
+STRIGOI_IMAGE = os.getenv("STRIGOI_IMAGE", "ghcr.io/kelbresqe/strigoi-sandbox:latest")
 logger = logging.getLogger(__name__)
 
 
