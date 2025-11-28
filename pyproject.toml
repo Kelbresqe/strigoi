@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "strix-agent"
-version = "0.4.0"
-description = "Open-source AI Hackers for your apps"
-authors = ["Strix <hi@usestrix.com>"]
+name = "strigoi"
+version = "0.1.0"
+description = "Strigoi: A powerful agentic AI coding assistant"
+authors = ["Kelbresqe <kelbresqe@example.com>"]
 readme = "README.md"
 license = "Apache-2.0"
 keywords = [

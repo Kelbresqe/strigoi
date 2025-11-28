@@ -47,13 +47,14 @@ lint:
 type-check:
 	@echo "🔍 Type checking with mypy..."
 	poetry run mypy strix/
+	poetry run mypy strigoi/
 	@echo "🔍 Type checking with pyright..."
-	poetry run pyright strix/
+	poetry run pyright strigoi/
 	@echo "✅ Type checking complete!"
 
 security:
 	@echo "🔒 Running security checks with bandit..."
-	poetry run bandit -r strix/ -c pyproject.toml
+	poetry run bandit -r strigoi/ -c pyproject.toml
 	@echo "✅ Security checks complete!"
 
 check-all: format lint type-check security
@@ -66,7 +67,7 @@ test:
 
 test-cov:
 	@echo "🧪 Running tests with coverage..."
-	poetry run pytest -v --cov=strix --cov-report=term-missing --cov-report=html
+	poetry run pytest -v --cov=strigoi --cov-report=term-missing --cov-report=html
 	@echo "✅ Tests with coverage complete!"
 	@echo "📊 Coverage report generated in htmlcov/"
 

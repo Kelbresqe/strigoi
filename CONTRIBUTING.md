@@ -1,6 +1,6 @@
-# Contributing to Strix
+# Contributing to Strigoi
 
-Thank you for your interest in contributing to Strix! This guide will help you get started with development and contributions.
+Thank you for your interest in contributing to Strigoi! This guide will help you get started with development and contributions.
 
 ## 🚀 Development Setup
 
@@ -15,8 +15,8 @@ Thank you for your interest in contributing to Strix! This guide will help you g
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/usestrix/strix.git
-   cd strix
+   git clone https://github.com/kelbresqe/strigoi.git
+   cd strigoi
    ```
 
 2. **Install development dependencies**
@@ -30,18 +30,18 @@ Thank you for your interest in contributing to Strix! This guide will help you g
 
 3. **Configure your LLM provider**
    ```bash
-   export STRIX_LLM="openai/gpt-5"
+   export STRIGOI_LLM="openai/gpt-5"
    export LLM_API_KEY="your-api-key"
    ```
 
-4. **Run Strix in development mode**
+4. **Run Strigoi in development mode**
    ```bash
-   poetry run strix --target https://example.com
+   poetry run strigoi --target https://example.com
    ```
 
 ## 📚 Contributing Prompt Modules
 
-Prompt modules are specialized knowledge packages that enhance agent capabilities. See [strix/prompts/README.md](strix/prompts/README.md) for detailed guidelines.
+Prompt modules are specialized knowledge packages that enhance agent capabilities. See [strigoi/prompts/README.md](strigoi/prompts/README.md) for detailed guidelines.
 
 ### Quick Guide
 
@@ -83,7 +83,7 @@ Prompt modules are specialized knowledge packages that enhance agent capabilitie
 When reporting bugs, please include:
 
 - Python version and OS
-- Strix version
+- Strigoi version
 - LLMs being used
 - Full error traceback
 - Steps to reproduce

@@ -14,7 +14,7 @@ from docker.models.containers import Container
 from .runtime import AbstractRuntime, SandboxInfo
 
 
-STRIX_IMAGE = os.getenv("STRIX_IMAGE", "ghcr.io/usestrix/strix-sandbox:0.1.10")
+STRIGOI_IMAGE = os.getenv("STRIGOI_IMAGE", "ghcr.io/usestrix/strix-sandbox:0.1.10")
 logger = logging.getLogger(__name__)
 
 
@@ -40,7 +40,7 @@ class DockerRuntime(AbstractRuntime):
 
     def _get_scan_id(self, agent_id: str) -> str:
         try:
-            from strix.telemetry.tracer import get_global_tracer
+            from strigoi.telemetry.tracer import get_global_tracer
 
             tracer = get_global_tracer()
             if tracer and tracer.scan_config:
@@ -83,7 +83,7 @@ class DockerRuntime(AbstractRuntime):
 
         for attempt in range(max_retries):
             try:
-                self._verify_image_available(STRIX_IMAGE)
+                self._verify_image_available(STRIGOI_IMAGE)
 
                 try:
                     existing_container = self.client.containers.get(container_name)
@@ -105,17 +105,17 @@ class DockerRuntime(AbstractRuntime):
                 self._tool_server_token = tool_server_token
 
                 container = self.client.containers.run(
-                    STRIX_IMAGE,
+                    STRIGOI_IMAGE,
                     command="sleep infinity",
                     detach=True,
                     name=container_name,
-                    hostname=f"strix-scan-{scan_id}",
+                    hostname=f"strigoi-scan-{scan_id}",
                     ports={
                         f"{caido_port}/tcp": caido_port,
                         f"{tool_server_port}/tcp": tool_server_port,
                     },
                     cap_add=["NET_ADMIN", "NET_RAW"],
-                    labels={"strix-scan-id": scan_id},
+                    labels={"strigoi-scan-id": scan_id},
                     environment={
                         "PYTHONUNBUFFERED": "1",
                         "CAIDO_PORT": str(caido_port),
@@ -152,7 +152,7 @@ class DockerRuntime(AbstractRuntime):
         ) from last_exception
 
     def _get_or_create_scan_container(self, scan_id: str) -> Container:  # noqa: PLR0912
-        container_name = f"strix-scan-{scan_id}"
+        container_name = f"strigoi-scan-{scan_id}"
 
         if self._scan_container:
             try:
@@ -169,8 +169,8 @@ class DockerRuntime(AbstractRuntime):
             container.reload()
 
             if (
-                "strix-scan-id" not in container.labels
-                or container.labels["strix-scan-id"] != scan_id
+                "strigoi-scan-id" not in container.labels
+                or container.labels["strigoi-scan-id"] != scan_id
             ):
                 logger.warning(
                     f"Container {container_name} exists but missing/wrong label, updating"
@@ -200,7 +200,7 @@ class DockerRuntime(AbstractRuntime):
 
         try:
             containers = self.client.containers.list(
-                all=True, filters={"label": f"strix-scan-id={scan_id}"}
+                all=True, filters={"label": f"strigoi-scan-id={scan_id}"}
             )
             if containers:
                 container = cast("Container", containers[0])
@@ -241,8 +241,8 @@ class DockerRuntime(AbstractRuntime):
 
         container.exec_run(
             f"bash -c 'source /etc/profile.d/proxy.sh && cd /app && "
-            f"STRIX_SANDBOX_MODE=true CAIDO_API_TOKEN={caido_token} CAIDO_PORT={caido_port} "
-            f"poetry run python strix/runtime/tool_server.py --token {tool_server_token} "
+            f"STRIGOI_SANDBOX_MODE=true CAIDO_API_TOKEN={caido_token} CAIDO_PORT={caido_port} "
+            f"poetry run python strigoi/runtime/tool_server.py --token {tool_server_token} "
             f"--host 0.0.0.0 --port {tool_server_port} &'",
             detach=True,
             user="pentester",

@@ -10,9 +10,9 @@ from rich.live import Live
 from rich.panel import Panel
 from rich.text import Text
 
-from strix.agents.StrixAgent import StrixAgent
-from strix.llm.config import LLMConfig
-from strix.telemetry.tracer import Tracer, set_global_tracer
+from strigoi.agents.StrigoiAgent import StrigoiAgent
+from strigoi.llm.config import LLMConfig
+from strigoi.telemetry.tracer import Tracer, set_global_tracer
 
 from .utils import build_final_stats_text, build_live_stats_text, get_severity_color
 
@@ -22,7 +22,7 @@ async def run_cli(args: Any) -> None:  # noqa: PLR0915
 
     start_text = Text()
     start_text.append("🦉 ", style="bold white")
-    start_text.append("STRIX CYBERSECURITY AGENT", style="bold green")
+    start_text.append("STRIGOI CYBERSECURITY AGENT", style="bold green")
 
     target_text = Text()
     if len(args.targets_info) == 1:
@@ -39,7 +39,7 @@ async def run_cli(args: Any) -> None:  # noqa: PLR0915
 
     results_text = Text()
     results_text.append("📊 Results will be saved to: ", style="bold cyan")
-    results_text.append(f"strix_runs/{args.run_name}", style="bold white")
+    results_text.append(f"strigoi_runs/{args.run_name}", style="bold white")
 
     note_text = Text()
     note_text.append("\n\n", style="dim")
@@ -56,7 +56,7 @@ async def run_cli(args: Any) -> None:  # noqa: PLR0915
             results_text,
             note_text,
         ),
-        title="[bold green]🛡️  STRIX PENETRATION TEST INITIATED",
+        title="[bold green]🛡️  STRIGOI PENETRATION TEST INITIATED",
         title_align="center",
         border_style="green",
         padding=(1, 2),
@@ -171,7 +171,7 @@ async def run_cli(args: Any) -> None:  # noqa: PLR0915
             update_thread.start()
 
             try:
-                agent = StrixAgent(agent_config)
+                agent = StrigoiAgent(agent_config)
                 result = await agent.execute_scan(scan_config)
 
                 if isinstance(result, dict) and not result.get("success", True):

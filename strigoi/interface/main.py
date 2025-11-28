@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Strix Agent Interface
+Strigoi Agent Interface
 """
 
 import argparse
@@ -17,9 +17,9 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
-from strix.interface.cli import run_cli
-from strix.interface.tui import run_tui
-from strix.interface.utils import (
+from strigoi.interface.cli import run_cli
+from strigoi.interface.tui import run_tui
+from strigoi.interface.utils import (
     assign_workspace_subdirs,
     build_final_stats_text,
     check_docker_connection,
@@ -31,8 +31,8 @@ from strix.interface.utils import (
     process_pull_line,
     validate_llm_response,
 )
-from strix.runtime.docker_runtime import STRIX_IMAGE
-from strix.telemetry.tracer import get_global_tracer
+from strigoi.runtime.docker_runtime import STRIGOI_IMAGE
+from strigoi.telemetry.tracer import get_global_tracer
 
 
 logging.getLogger().setLevel(logging.ERROR)
@@ -43,8 +43,8 @@ def validate_environment() -> None:  # noqa: PLR0912, PLR0915
     missing_required_vars = []
     missing_optional_vars = []
 
-    if not os.getenv("STRIX_LLM"):
-        missing_required_vars.append("STRIX_LLM")
+    if not os.getenv("STRIGOI_LLM"):
+        missing_required_vars.append("STRIGOI_LLM")
 
     has_base_url = any(
         [
@@ -85,9 +85,9 @@ def validate_environment() -> None:  # noqa: PLR0912, PLR0915
 
         error_text.append("\nRequired environment variables:\n", style="white")
         for var in missing_required_vars:
-            if var == "STRIX_LLM":
+            if var == "STRIGOI_LLM":
                 error_text.append("• ", style="white")
-                error_text.append("STRIX_LLM", style="bold cyan")
+                error_text.append("STRIGOI_LLM", style="bold cyan")
                 error_text.append(
                     " - Model name to use with litellm (e.g., 'openai/gpt-5')\n",
                     style="white",
@@ -123,7 +123,7 @@ def validate_environment() -> None:  # noqa: PLR0912, PLR0915
                     )
 
         error_text.append("\nExample setup:\n", style="white")
-        error_text.append("export STRIX_LLM='openai/gpt-5'\n", style="dim white")
+        error_text.append("export STRIGOI_LLM='openai/gpt-5'\n", style="dim white")
 
         if "LLM_API_KEY" in missing_required_vars:
             error_text.append("export LLM_API_KEY='your-api-key-here'\n", style="dim white")
@@ -148,7 +148,7 @@ def validate_environment() -> None:  # noqa: PLR0912, PLR0915
 
         panel = Panel(
             error_text,
-            title="[bold red]🛡️  STRIX CONFIGURATION ERROR",
+            title="[bold red]🛡️  STRIGOI CONFIGURATION ERROR",
             title_align="center",
             border_style="red",
             padding=(1, 2),
@@ -174,7 +174,7 @@ def check_docker_installed() -> None:
 
         panel = Panel(
             error_text,
-            title="[bold red]🛡️  STRIX STARTUP ERROR",
+            title="[bold red]🛡️  STRIGOI STARTUP ERROR",
             title_align="center",
             border_style="red",
             padding=(1, 2),
@@ -187,7 +187,7 @@ async def warm_up_llm() -> None:
     console = Console()
 
     try:
-        model_name = os.getenv("STRIX_LLM", "openai/gpt-5")
+        model_name = os.getenv("STRIGOI_LLM", "openai/gpt-5")
         api_key = os.getenv("LLM_API_KEY")
 
         if api_key:
@@ -228,7 +228,7 @@ async def warm_up_llm() -> None:
 
         panel = Panel(
             error_text,
-            title="[bold red]🛡️  STRIX STARTUP ERROR",
+            title="[bold red]🛡️  STRIGOI STARTUP ERROR",
             title_align="center",
             border_style="red",
             padding=(1, 2),
@@ -242,36 +242,36 @@ async def warm_up_llm() -> None:
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Strix Multi-Agent Cybersecurity Penetration Testing Tool",
+        description="Strigoi Multi-Agent Cybersecurity Penetration Testing Tool",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   # Web application penetration test
-  strix --target https://example.com
+  strigoi --target https://example.com
 
   # GitHub repository analysis
-  strix --target https://github.com/user/repo
-  strix --target git@github.com:user/repo.git
+  strigoi --target https://github.com/user/repo
+  strigoi --target git@github.com:user/repo.git
 
   # Local code analysis
-  strix --target ./my-project
+  strigoi --target ./my-project
 
   # Domain penetration test
-  strix --target example.com
+  strigoi --target example.com
 
   # IP address penetration test
-  strix --target 192.168.1.42
+  strigoi --target 192.168.1.42
 
   # Multiple targets (e.g., white-box testing with source and deployed app)
-  strix --target https://github.com/user/repo --target https://example.com
-  strix --target ./my-project --target https://staging.example.com --target https://prod.example.com
+  strigoi --target https://github.com/user/repo --target https://example.com
+  strigoi --target ./my-project --target https://staging.example.com --target https://prod.example.com
 
   # Custom instructions (inline)
-  strix --target example.com --instruction "Focus on authentication vulnerabilities"
+  strigoi --target example.com --instruction "Focus on authentication vulnerabilities"
 
   # Custom instructions (from file)
-  strix --target example.com --instruction ./instructions.txt
-  strix --target https://app.com --instruction /path/to/detailed_instructions.md
+  strigoi --target example.com --instruction ./instructions.txt
+  strigoi --target https://app.com --instruction /path/to/detailed_instructions.md
         """,
     )
 
@@ -401,7 +401,7 @@ def display_completion_message(args: argparse.Namespace, results_path: Path) -> 
 
     panel = Panel(
         panel_content,
-        title="[bold green]🛡️  STRIX CYBERSECURITY AGENT",
+        title="[bold green]🛡️  STRIGOI CYBERSECURITY AGENT",
         title_align="center",
         border_style=border_style,
         padding=(1, 2),
@@ -416,11 +416,11 @@ def pull_docker_image() -> None:
     console = Console()
     client = check_docker_connection()
 
-    if image_exists(client, STRIX_IMAGE):
+    if image_exists(client, STRIGOI_IMAGE):
         return
 
     console.print()
-    console.print(f"[bold cyan]🐳 Pulling Docker image:[/] {STRIX_IMAGE}")
+    console.print(f"[bold cyan]🐳 Pulling Docker image:[/] {STRIGOI_IMAGE}")
     console.print("[dim yellow]This only happens on first run and may take a few minutes...[/]")
     console.print()
 
@@ -429,7 +429,7 @@ def pull_docker_image() -> None:
             layers_info: dict[str, str] = {}
             last_update = ""
 
-            for line in client.api.pull(STRIX_IMAGE, stream=True, decode=True):
+            for line in client.api.pull(STRIGOI_IMAGE, stream=True, decode=True):
                 last_update = process_pull_line(line, layers_info, status, last_update)
 
         except DockerException as e:
@@ -438,7 +438,7 @@ def pull_docker_image() -> None:
             error_text.append("❌ ", style="bold red")
             error_text.append("FAILED TO PULL IMAGE", style="bold red")
             error_text.append("\n\n", style="white")
-            error_text.append(f"Could not download: {STRIX_IMAGE}\n", style="white")
+            error_text.append(f"Could not download: {STRIGOI_IMAGE}\n", style="white")
             error_text.append(str(e), style="dim red")
 
             panel = Panel(
@@ -487,7 +487,7 @@ def main() -> None:
     else:
         asyncio.run(run_tui(args))
 
-    results_path = Path("strix_runs") / args.run_name
+    results_path = Path("strigoi_runs") / args.run_name
     display_completion_message(args, results_path)
 
     if args.non_interactive:

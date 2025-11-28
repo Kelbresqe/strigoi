@@ -2,7 +2,7 @@ import threading
 from datetime import UTC, datetime
 from typing import Any, Literal
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 _agent_graph: dict[str, Any] = {
@@ -210,7 +210,7 @@ def create_agent(
             }
 
         if module_list:
-            from strix.prompts import get_all_module_names, validate_module_names
+            from strigoi.prompts import get_all_module_names, validate_module_names
 
             validation = validate_module_names(module_list)
             if validation["invalid"]:
@@ -224,9 +224,9 @@ def create_agent(
                     "agent_id": None,
                 }
 
-        from strix.agents import StrixAgent
-        from strix.agents.state import AgentState
-        from strix.llm.config import LLMConfig
+        from strigoi.agents import StrigoiAgent
+        from strigoi.agents.state import AgentState
+        from strigoi.llm.config import LLMConfig
 
         state = AgentState(task=task, agent_name=name, parent_id=parent_id, max_iterations=300)
 
@@ -249,7 +249,7 @@ def create_agent(
         if parent_agent and hasattr(parent_agent, "non_interactive"):
             agent_config["non_interactive"] = parent_agent.non_interactive
 
-        agent = StrixAgent(agent_config)
+        agent = StrigoiAgent(agent_config)
 
         inherited_messages = []
         if inherit_context:
@@ -500,7 +500,7 @@ def stop_agent(agent_id: str) -> dict[str, Any]:
         agent_node["status"] = "stopping"
 
         try:
-            from strix.telemetry.tracer import get_global_tracer
+            from strigoi.telemetry.tracer import get_global_tracer
 
             tracer = get_global_tracer()
             if tracer:
@@ -591,7 +591,7 @@ def wait_for_message(
             _agent_graph["nodes"][agent_id]["waiting_reason"] = reason
 
         try:
-            from strix.telemetry.tracer import get_global_tracer
+            from strigoi.telemetry.tracer import get_global_tracer
 
             tracer = get_global_tracer()
             if tracer:

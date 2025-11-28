@@ -406,7 +406,7 @@ def clone_repository(repo_url: str, run_name: str, dest_name: str | None = None)
     if git_executable is None:
         raise FileNotFoundError("Git executable not found in PATH")
 
-    temp_dir = Path(tempfile.gettempdir()) / "strix_repos" / run_name
+    temp_dir = Path(tempfile.gettempdir()) / "strigoi_repos" / run_name
     temp_dir.mkdir(parents=True, exist_ok=True)
 
     if dest_name:
@@ -466,7 +466,7 @@ def clone_repository(repo_url: str, run_name: str, dest_name: str | None = None)
 
         panel = Panel(
             error_text,
-            title="[bold red]🛡️  STRIX CLONE ERROR",
+            title="[bold red]🛡️  STRIGOI CLONE ERROR",
             title_align="center",
             border_style="red",
             padding=(1, 2),
@@ -494,7 +494,7 @@ def check_docker_connection() -> Any:
 
         panel = Panel(
             error_text,
-            title="[bold red]🛡️  STRIX STARTUP ERROR",
+            title="[bold red]🛡️  STRIGOI STARTUP ERROR",
             title_align="center",
             border_style="red",
             padding=(1, 2),

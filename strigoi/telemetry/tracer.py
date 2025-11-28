@@ -60,7 +60,7 @@ class Tracer:
 
     def get_run_dir(self) -> Path:
         if self._run_dir is None:
-            runs_dir = Path.cwd() / "strix_runs"
+            runs_dir = Path.cwd() / "strigoi_runs"
             runs_dir.mkdir(exist_ok=True)
 
             run_dir_name = self.run_name if self.run_name else self.run_id
@@ -303,7 +303,7 @@ class Tracer:
         )
 
     def get_total_llm_stats(self) -> dict[str, Any]:
-        from strix.tools.agents_graph.agents_graph_actions import _agent_instances
+        from strigoi.tools.agents_graph.agents_graph_actions import _agent_instances
 
         total_stats = {
             "input_tokens": 0,

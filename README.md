@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">Strix</h1>
+<h1 align="center">Strigoi</h1>
 
 <h2 align="center">Open-source AI Hackers to secure your Apps</h2>
 
@@ -36,17 +36,17 @@
 
 ---
 
-## 🦉 Strix Overview
+## 🦉 Strigoi Overview
 
-Strix are autonomous AI agents that act just like real hackers - they run your code dynamically, find vulnerabilities, and validate them through actual proof-of-concepts. Built for developers and security teams who need fast, accurate security testing without the overhead of manual pentesting or the false positives of static analysis tools.
+Strigoi are autonomous AI agents that hunt vulnerabilities like a predator in the night. They act just like elite hackers - running your code dynamically, identifying weaknesses, and validating them through actual proof-of-concepts. Built for developers and security teams who need fast, lethal accuracy in security testing without the overhead of manual pentesting or the false positives of static analysis tools.
 
 **Key Capabilities:**
 
-- 🔧 **Full hacker toolkit** out of the box
-- 🤝 **Teams of agents** that collaborate and scale
-- ✅ **Real validation** with PoCs, not false positives
+- 🔧 **Full Hunter's Toolkit** out of the box
+- 🤝 **Coven of Agents** that collaborate and scale
+- ✅ **Real Validation** with PoCs, not false positives
 - 💻 **Developer‑first** CLI with actionable reports
-- 🔄 **Auto‑fix & reporting** to accelerate remediation
+- 🔄 **Auto‑fix & Reporting** to accelerate remediation
 
 
 ## 🎯 Use Cases
@@ -68,19 +68,19 @@ Strix are autonomous AI agents that act just like real hackers - they run your c
 ### Installation & First Scan
 
 ```bash
-# Install Strix
-pipx install strix-agent
+# Install Strigoi
+pipx install strigoi
 
 # Configure your AI provider
-export STRIX_LLM="openai/gpt-5"
+export STRIGOI_LLM="openai/gpt-5"
 export LLM_API_KEY="your-api-key"
 
 # Run your first security assessment
-strix --target ./app-directory
+strigoi --target ./app-directory
 ```
 
 > [!NOTE]
-> First run automatically pulls the sandbox Docker image. Results are saved to `strix_runs/<run-name>`
+> First run automatically pulls the sandbox Docker image. Results are saved to `strigoi_runs/<run-name>`
 
 ## ☁️ Run Strix in Cloud
 
@@ -109,11 +109,11 @@ Strix agents come equipped with a comprehensive security testing toolkit:
 - **Python Runtime** - Custom exploit development and validation
 - **Reconnaissance** - Automated OSINT and attack surface mapping
 - **Code Analysis** - Static and dynamic analysis capabilities
-- **Knowledge Management** - Structured findings and attack documentation
+- **Grimoire** - Structured findings and attack documentation
 
 ### 🎯 Comprehensive Vulnerability Detection
 
-Strix can identify and validate a wide range of security vulnerabilities:
+Strigoi can identify and validate a wide range of security vulnerabilities:
 
 - **Access Control** - IDOR, privilege escalation, auth bypass
 - **Injection Attacks** - SQL, NoSQL, command injection
@@ -123,7 +123,7 @@ Strix can identify and validate a wide range of security vulnerabilities:
 - **Authentication** - JWT vulnerabilities, session management
 - **Infrastructure** - Misconfigurations, exposed services
 
-### 🕸️ Graph of Agents
+### 🕸️ Coven of Agents
 
 Advanced multi-agent orchestration for comprehensive security testing:
 
@@ -139,26 +139,26 @@ Advanced multi-agent orchestration for comprehensive security testing:
 
 ```bash
 # Scan a local codebase
-strix --target ./app-directory
+strigoi --target ./app-directory
 
 # Security review of a GitHub repository
-strix --target https://github.com/org/repo
+strigoi --target https://github.com/org/repo
 
 # Black-box web application assessment
-strix --target https://your-app.com
+strigoi --target https://your-app.com
 ```
 
 ### Advanced Testing Scenarios
 
 ```bash
 # Grey-box authenticated testing
-strix --target https://your-app.com --instruction "Perform authenticated testing using credentials: user:pass"
+strigoi --target https://your-app.com --instruction "Perform authenticated testing using credentials: user:pass"
 
 # Multi-target testing (source code + deployed app)
-strix -t https://github.com/org/app -t https://your-app.com
+strigoi -t https://github.com/org/app -t https://your-app.com
 
 # Focused testing with custom instructions
-strix --target api.your-app.com --instruction "Focus on business logic flaws and IDOR vulnerabilities"
+strigoi --target api.your-app.com --instruction "Focus on business logic flaws and IDOR vulnerabilities"
 ```
 
 ### 🤖 Headless Mode
@@ -166,7 +166,7 @@ strix --target api.your-app.com --instruction "Focus on business logic flaws and
 Run Strix programmatically without interactive UI using the `-n/--non-interactive` flag—perfect for servers and automated jobs. The CLI prints real-time vulnerability findings, and the final report before exiting. Exits with non-zero code when vulnerabilities are found.
 
 ```bash
-strix -n --target https://your-app.com
+strigoi -n --target https://your-app.com
 ```
 
 ### 🔄 CI/CD (GitHub Actions)
@@ -174,7 +174,7 @@ strix -n --target https://your-app.com
 Strix can be added to your pipeline to run a security test on pull requests with a lightweight GitHub Actions workflow:
 
 ```yaml
-name: strix-penetration-test
+name: strigoi-penetration-test
 
 on:
   pull_request:
@@ -185,21 +185,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Strix
-        run: pipx install strix-agent
+      - name: Install Strigoi
+        run: pipx install strigoi
 
-      - name: Run Strix
+      - name: Run Strigoi
         env:
-          STRIX_LLM: ${{ secrets.STRIX_LLM }}
+          STRIGOI_LLM: ${{ secrets.STRIGOI_LLM }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
 
-        run: strix -n -t ./
+        run: strigoi -n -t ./
 ```
 
 ### ⚙️ Configuration
 
 ```bash
-export STRIX_LLM="openai/gpt-5"
+export STRIGOI_LLM="openai/gpt-5"
 export LLM_API_KEY="your-api-key"
 
 # Optional
@@ -224,7 +224,7 @@ See our [Contributing Guide](CONTRIBUTING.md) for details on:
 ### Prompt Modules Collection
 Help expand our collection of specialized prompt modules for AI agents:
 - Advanced testing techniques for vulnerabilities, frameworks, and technologies
-- See [Prompt Modules Documentation](strix/prompts/README.md) for guidelines
+- See [Prompt Modules Documentation](strigoi/prompts/README.md) for guidelines
 - Submit via [pull requests](https://github.com/usestrix/strix/pulls) or [issues](https://github.com/usestrix/strix/issues)
 
 ## 👥 Join Our Community

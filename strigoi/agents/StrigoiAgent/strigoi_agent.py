@@ -1,10 +1,10 @@
 from typing import Any
 
-from strix.agents.base_agent import BaseAgent
-from strix.llm.config import LLMConfig
+from strigoi.agents.base_agent import BaseAgent
+from strigoi.llm.config import LLMConfig
 
 
-class StrixAgent(BaseAgent):
+class StrigoiAgent(BaseAgent):
     max_iterations = 300
 
     def __init__(self, config: dict[str, Any]):

@@ -79,8 +79,14 @@ logs/
 tensorboard/
 
 # Agent execution traces
-strix_runs/
+strigoi_runs/
 agent_runs/
+
+# Type checking
+.mypy_cache/
+.pyright/
+.ruff_cache/
+pyrightconfig.json
 
 # Misc
 *.log
