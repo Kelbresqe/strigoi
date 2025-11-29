@@ -5,8 +5,8 @@ from typing import Any
 import httpx
 
 
-if os.getenv("STRIX_SANDBOX_MODE", "false").lower() == "false":
-    from strix.runtime import get_runtime
+if os.getenv("STRIGOI_SANDBOX_MODE", "false").lower() == "false":
+    from strigoi.runtime import get_runtime
 
 from .argument_parser import convert_arguments
 from .registry import (
@@ -19,7 +19,7 @@ from .registry import (
 
 async def execute_tool(tool_name: str, agent_state: Any | None = None, **kwargs: Any) -> Any:
     execute_in_sandbox = should_execute_in_sandbox(tool_name)
-    sandbox_mode = os.getenv("STRIX_SANDBOX_MODE", "false").lower() == "true"
+    sandbox_mode = os.getenv("STRIGOI_SANDBOX_MODE", "false").lower() == "true"
 
     if execute_in_sandbox and not sandbox_mode:
         return await _execute_tool_in_sandbox(tool_name, agent_state, **kwargs)
@@ -240,7 +240,7 @@ async def _execute_single_tool(
 
 def _get_tracer_and_agent_id(agent_state: Any | None) -> tuple[Any | None, str]:
     try:
-        from strix.telemetry.tracer import get_global_tracer
+        from strigoi.telemetry.tracer import get_global_tracer
 
         tracer = get_global_tracer()
         agent_id = agent_state.agent_id if agent_state else "unknown_agent"

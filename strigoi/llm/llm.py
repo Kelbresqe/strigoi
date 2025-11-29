@@ -15,12 +15,12 @@ from jinja2 import (
 from litellm import ModelResponse, completion_cost
 from litellm.utils import supports_prompt_caching
 
-from strix.llm.config import LLMConfig
-from strix.llm.memory_compressor import MemoryCompressor
-from strix.llm.request_queue import get_global_queue
-from strix.llm.utils import _truncate_to_first_function, parse_tool_invocations
-from strix.prompts import load_prompt_modules
-from strix.tools import get_tools_prompt
+from strigoi.llm.config import LLMConfig
+from strigoi.llm.memory_compressor import MemoryCompressor
+from strigoi.llm.request_queue import get_global_queue
+from strigoi.llm.utils import _truncate_to_first_function, parse_tool_invocations
+from strigoi.prompts import load_prompt_modules
+from strigoi.tools import get_tools_prompt
 
 
 logger = logging.getLogger(__name__)

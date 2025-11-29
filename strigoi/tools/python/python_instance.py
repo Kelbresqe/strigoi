@@ -30,7 +30,7 @@ class PythonInstance:
 
     def _setup_proxy_functions(self) -> None:
         try:
-            from strix.tools.proxy import proxy_actions
+            from strigoi.tools.proxy import proxy_actions
 
             proxy_functions = [
                 "list_requests",

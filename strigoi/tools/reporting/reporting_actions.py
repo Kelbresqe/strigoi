@@ -1,6 +1,6 @@
 from typing import Any
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 @register_tool(sandbox_execution=False)
@@ -27,7 +27,7 @@ def create_vulnerability_report(
         return {"success": False, "message": validation_error}
 
     try:
-        from strix.telemetry.tracer import get_global_tracer
+        from strigoi.telemetry.tracer import get_global_tracer
 
         tracer = get_global_tracer()
         if tracer:

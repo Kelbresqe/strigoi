@@ -20,7 +20,7 @@ from .registry import (
 )
 
 
-SANDBOX_MODE = os.getenv("STRIX_SANDBOX_MODE", "false").lower() == "true"
+SANDBOX_MODE = os.getenv("STRIGOI_SANDBOX_MODE", "false").lower() == "true"
 
 HAS_PERPLEXITY_API = bool(os.getenv("PERPLEXITY_API_KEY"))
 

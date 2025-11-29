@@ -25,7 +25,7 @@ class ImplementedInClientSideOnlyError(Exception):
 def _process_dynamic_content(content: str) -> str:
     if "{{DYNAMIC_MODULES_DESCRIPTION}}" in content:
         try:
-            from strix.prompts import generate_modules_description
+            from strigoi.prompts import generate_modules_description
 
             modules_description = generate_modules_description()
             content = content.replace("{{DYNAMIC_MODULES_DESCRIPTION}}", modules_description)
@@ -106,7 +106,7 @@ def register_tool(
             "sandbox_execution": sandbox_execution,
         }
 
-        sandbox_mode = os.getenv("STRIX_SANDBOX_MODE", "false").lower() == "true"
+        sandbox_mode = os.getenv("STRIGOI_SANDBOX_MODE", "false").lower() == "true"
         if not sandbox_mode:
             try:
                 module_path = Path(inspect.getfile(f))

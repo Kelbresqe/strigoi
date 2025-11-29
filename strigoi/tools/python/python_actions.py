@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 from .python_manager import get_python_session_manager
 

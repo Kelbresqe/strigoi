@@ -3,7 +3,7 @@ from typing import Any
 
 import requests
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 SYSTEM_PROMPT = """You are assisting a cybersecurity agent specialized in vulnerability scanning

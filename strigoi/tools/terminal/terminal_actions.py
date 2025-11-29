@@ -1,6 +1,6 @@
 from typing import Any
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 from .terminal_manager import get_terminal_manager
 

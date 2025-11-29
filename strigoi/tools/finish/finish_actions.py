@@ -1,6 +1,6 @@
 from typing import Any
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 def _validate_root_agent(agent_state: Any) -> dict[str, Any] | None:
@@ -27,7 +27,7 @@ def _validate_content(content: str) -> dict[str, Any] | None:
 
 def _check_active_agents(agent_state: Any = None) -> dict[str, Any] | None:
     try:
-        from strix.tools.agents_graph.agents_graph_actions import _agent_graph
+        from strigoi.tools.agents_graph.agents_graph_actions import _agent_graph
 
         current_agent_id = None
         if agent_state and hasattr(agent_state, "agent_id"):
@@ -107,7 +107,7 @@ def _check_active_agents(agent_state: Any = None) -> dict[str, Any] | None:
 
 def _finalize_with_tracer(content: str, success: bool) -> dict[str, Any]:
     try:
-        from strix.telemetry.tracer import get_global_tracer
+        from strigoi.telemetry.tracer import get_global_tracer
 
         tracer = get_global_tracer()
         if tracer:

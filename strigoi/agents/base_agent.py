@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Any, Optional
 
 
 if TYPE_CHECKING:
-    from strix.telemetry.tracer import Tracer
+    from strigoi.telemetry.tracer import Tracer
 
 from jinja2 import (
     Environment,
@@ -14,9 +14,9 @@ from jinja2 import (
     select_autoescape,
 )
 
-from strix.llm import LLM, LLMConfig, LLMRequestFailedError
-from strix.llm.utils import clean_content
-from strix.tools import process_tool_invocations
+from strigoi.llm import LLM, LLMConfig, LLMRequestFailedError
+from strigoi.llm.utils import clean_content
+from strigoi.tools import process_tool_invocations
 
 from .state import AgentState
 
@@ -80,7 +80,7 @@ class BaseAgent(metaclass=AgentMeta):
             self.llm.set_agent_identity(self.agent_name, self.state.agent_id)
         self._current_task: asyncio.Task[Any] | None = None
 
-        from strix.telemetry.tracer import get_global_tracer
+        from strigoi.telemetry.tracer import get_global_tracer
 
         tracer = get_global_tracer()
         if tracer:
@@ -114,7 +114,7 @@ class BaseAgent(metaclass=AgentMeta):
         self._add_to_agents_graph()
 
     def _add_to_agents_graph(self) -> None:
-        from strix.tools.agents_graph import agents_graph_actions
+        from strigoi.tools.agents_graph import agents_graph_actions
 
         node = {
             "id": self.state.agent_id,
@@ -153,7 +153,7 @@ class BaseAgent(metaclass=AgentMeta):
     async def agent_loop(self, task: str) -> dict[str, Any]:  # noqa: PLR0912, PLR0915
         await self._initialize_sandbox_and_state(task)
 
-        from strix.telemetry.tracer import get_global_tracer
+        from strigoi.telemetry.tracer import get_global_tracer
 
         tracer = get_global_tracer()
 
@@ -271,14 +271,14 @@ class BaseAgent(metaclass=AgentMeta):
             self.state.resume_from_waiting()
             self.state.add_message("assistant", "Waiting timeout reached. Resuming execution.")
 
-            from strix.telemetry.tracer import get_global_tracer
+            from strigoi.telemetry.tracer import get_global_tracer
 
             tracer = get_global_tracer()
             if tracer:
                 tracer.update_agent_status(self.state.agent_id, "running")
 
             try:
-                from strix.tools.agents_graph.agents_graph_actions import _agent_graph
+                from strigoi.tools.agents_graph.agents_graph_actions import _agent_graph
 
                 if self.state.agent_id in _agent_graph["nodes"]:
                     _agent_graph["nodes"][self.state.agent_id]["status"] = "running"
@@ -330,9 +330,9 @@ class BaseAgent(metaclass=AgentMeta):
     async def _initialize_sandbox_and_state(self, task: str) -> None:
         import os
 
-        sandbox_mode = os.getenv("STRIX_SANDBOX_MODE", "false").lower() == "true"
+        sandbox_mode = os.getenv("STRIGOI_SANDBOX_MODE", "false").lower() == "true"
         if not sandbox_mode and self.state.sandbox_id is None:
-            from strix.runtime import get_runtime
+            from strigoi.runtime import get_runtime
 
             runtime = get_runtime()
             sandbox_info = await runtime.create_sandbox(
@@ -434,7 +434,10 @@ class BaseAgent(metaclass=AgentMeta):
 
     def _check_agent_messages(self, state: AgentState) -> None:  # noqa: PLR0912
         try:
-            from strix.tools.agents_graph.agents_graph_actions import _agent_graph, _agent_messages
+            from strigoi.tools.agents_graph.agents_graph_actions import (
+                _agent_graph,
+                _agent_messages,
+            )
 
             agent_id = state.agent_id
             if not agent_id or agent_id not in _agent_messages:
@@ -453,7 +456,7 @@ class BaseAgent(metaclass=AgentMeta):
                                     state.resume_from_waiting()
                                     has_new_messages = True
 
-                                    from strix.telemetry.tracer import get_global_tracer
+                                    from strigoi.telemetry.tracer import get_global_tracer
 
                                     tracer = get_global_tracer()
                                     if tracer:
@@ -462,7 +465,7 @@ class BaseAgent(metaclass=AgentMeta):
                                 state.resume_from_waiting()
                                 has_new_messages = True
 
-                                from strix.telemetry.tracer import get_global_tracer
+                                from strigoi.telemetry.tracer import get_global_tracer
 
                                 tracer = get_global_tracer()
                                 if tracer:
@@ -504,7 +507,7 @@ class BaseAgent(metaclass=AgentMeta):
                         message["read"] = True
 
                 if has_new_messages and not state.is_waiting_for_input():
-                    from strix.telemetry.tracer import get_global_tracer
+                    from strigoi.telemetry.tracer import get_global_tracer
 
                     tracer = get_global_tracer()
                     if tracer:

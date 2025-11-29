@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 from .proxy_manager import get_proxy_manager
 

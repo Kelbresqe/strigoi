@@ -993,7 +993,7 @@ class StrigoiTUIApp(App):  # type: ignore[misc]
             return ""
 
         if role == "user":
-            from strix.interface.tool_components.user_message_renderer import UserMessageRenderer
+            from strigoi.interface.tool_components.user_message_renderer import UserMessageRenderer
 
             return UserMessageRenderer.render_simple(content)
         return content
@@ -1023,7 +1023,7 @@ class StrigoiTUIApp(App):  # type: ignore[misc]
 
         color = tool_colors.get(tool_name, "#737373")
 
-        from strix.interface.tool_components.registry import get_tool_renderer
+        from strigoi.interface.tool_components.registry import get_tool_renderer
 
         renderer = get_tool_renderer(tool_name)
 
@@ -1100,7 +1100,7 @@ class StrigoiTUIApp(App):  # type: ignore[misc]
             )
 
         try:
-            from strix.tools.agents_graph.agents_graph_actions import send_user_message_to_agent
+            from strigoi.tools.agents_graph.agents_graph_actions import send_user_message_to_agent
 
             send_user_message_to_agent(self.selected_agent_id, message)
 
@@ -1207,7 +1207,7 @@ class StrigoiTUIApp(App):  # type: ignore[misc]
         self.pop_screen()
 
         try:
-            from strix.tools.agents_graph.agents_graph_actions import stop_agent
+            from strigoi.tools.agents_graph.agents_graph_actions import stop_agent
 
             result = stop_agent(agent_id)
 

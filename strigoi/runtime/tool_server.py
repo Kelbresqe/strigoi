@@ -15,11 +15,11 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ValidationError
 
 
-SANDBOX_MODE = os.getenv("STRIX_SANDBOX_MODE", "false").lower() == "true"
+SANDBOX_MODE = os.getenv("STRIGOI_SANDBOX_MODE", "false").lower() == "true"
 if not SANDBOX_MODE:
-    raise RuntimeError("Tool server should only run in sandbox mode (STRIX_SANDBOX_MODE=true)")
+    raise RuntimeError("Tool server should only run in sandbox mode (STRIGOI_SANDBOX_MODE=true)")
 
-parser = argparse.ArgumentParser(description="Start Strix tool server")
+parser = argparse.ArgumentParser(description="Start Strigoi tool server")
 parser.add_argument("--token", required=True, help="Authentication token")
 parser.add_argument("--host", default="0.0.0.0", help="Host to bind to")  # nosec
 parser.add_argument("--port", type=int, required=True, help="Port to bind to")
@@ -72,8 +72,8 @@ def agent_worker(_agent_id: str, request_queue: Queue[Any], response_queue: Queu
     root_logger.handlers = [null_handler]
     root_logger.setLevel(logging.CRITICAL)
 
-    from strix.tools.argument_parser import ArgumentConversionError, convert_arguments
-    from strix.tools.registry import get_tool_by_name
+    from strigoi.tools.argument_parser import ArgumentConversionError, convert_arguments
+    from strigoi.tools.registry import get_tool_by_name
 
     while True:
         try:

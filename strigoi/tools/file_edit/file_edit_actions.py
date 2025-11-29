@@ -6,7 +6,7 @@ from typing import Any, cast
 from openhands_aci import file_editor
 from openhands_aci.utils.shell import run_shell_cmd
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 def _parse_file_editor_output(output: str) -> dict[str, Any]:

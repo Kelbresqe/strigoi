@@ -1,6 +1,6 @@
 from typing import Any, Literal, NoReturn
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 from .tab_manager import BrowserTabManager, get_browser_tab_manager
 

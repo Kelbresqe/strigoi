@@ -2,7 +2,7 @@ import uuid
 from datetime import UTC, datetime
 from typing import Any
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 _notes_storage: dict[str, dict[str, Any]] = {}

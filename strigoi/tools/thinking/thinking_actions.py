@@ -1,6 +1,6 @@
 from typing import Any
 
-from strix.tools.registry import register_tool
+from strigoi.tools.registry import register_tool
 
 
 @register_tool(sandbox_execution=False)
