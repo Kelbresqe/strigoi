@@ -55,19 +55,23 @@ class ChatTextArea(TextArea):  # type: ignore[misc]
     def set_app_reference(self, app: "StrigoiTUIApp") -> None:
         self._app_reference = app
 
-    def _on_key(self, event: events.Key) -> None:
+    def _on_key(self, event: events.Key) -> None:  # type: ignore[override]
         if event.key == "enter" and self._app_reference:
             text_content = str(self.text)  # type: ignore[has-type]
             message = text_content.strip()
             if message:
                 self.text = ""
 
-                self._app_reference._send_user_message(message)
+                # Schedule the async message send (store task to prevent GC)
+                coro = self._app_reference._send_user_message(message)  # type: ignore[func-returns-value]
+                task = asyncio.create_task(coro)  # type: ignore[arg-type]
+                self._app_reference._background_tasks.add(task)
+                task.add_done_callback(self._app_reference._background_tasks.discard)
 
                 event.prevent_default()
                 return
 
-        super()._on_key(event)
+        super()._on_key(event)  # type: ignore[unused-coroutine]
 
 
 class SplashScreen(Static):  # type: ignore[misc]
@@ -284,7 +288,8 @@ class StrigoiTUIApp(App):  # type: ignore[misc]
         self.tracer.set_scan_config(self.scan_config)
         set_global_tracer(self.tracer)
 
-        self.agent_nodes: dict[str, TreeNode] = {}
+        self.agent_nodes: dict[str, TreeNode[Any]] = {}
+        self._background_tasks: set[asyncio.Task[Any]] = set()  # Prevent GC of tasks
 
         self._displayed_agents: set[str] = set()
         self._displayed_events: list[str] = []
@@ -923,8 +928,9 @@ class StrigoiTUIApp(App):  # type: ignore[misc]
         for child in node.children:
             self._expand_node_recursively(child)
 
-    def _copy_node_under(self, node_to_copy: TreeNode, new_parent: TreeNode) -> None:
-        agent_id = node_to_copy.data["agent_id"]
+    def _copy_node_under(self, node_to_copy: TreeNode[Any], new_parent: TreeNode[Any]) -> None:
+        node_data = node_to_copy.data or {}
+        agent_id = node_data.get("agent_id", "")
         agent_data = self.tracer.agents.get(agent_id, {})
         agent_name_raw = agent_data.get("name", "Agent")
         status = agent_data.get("status", "running")

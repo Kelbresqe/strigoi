@@ -66,7 +66,6 @@ class TerminalSession:
         )
 
         self.session.set_option("history-limit", str(self.HISTORY_LIMIT))
-        self.session.history_limit = self.HISTORY_LIMIT
 
         _initial_window = self.session.active_window
         self.window = self.session.new_window(
@@ -76,6 +75,9 @@ class TerminalSession:
         )
         self.pane = self.window.active_pane
         _initial_window.kill()
+
+        if self.pane is None:
+            raise RuntimeError("Failed to get active pane")
 
         self.pane.send_keys(f'export PROMPT_COMMAND=\'export PS1="{self.PS1}"\'; export PS2=""')
         time.sleep(0.1)

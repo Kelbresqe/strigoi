@@ -16,7 +16,7 @@ class UserMessageRenderer(BaseToolRenderer):
         content = message_data.get("content", "")
 
         if not content:
-            return Static("", classes=cls.css_classes)
+            return Static("", classes=" ".join(cls.css_classes))
 
         if len(content) > 300:
             content = content[:297] + "..."
